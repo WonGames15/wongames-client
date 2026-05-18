@@ -33,7 +33,7 @@ jobs:
             -timeout 120s \
             -wait-retry-interval 5s
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
       - name: Build
