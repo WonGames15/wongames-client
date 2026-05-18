@@ -20,7 +20,7 @@
     "new:codegen": "graphql-codegen --config codegen.ts && npm run format:graphql:generated-test",
     "generate": "plop --plopfile generators/plopfile.js",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
