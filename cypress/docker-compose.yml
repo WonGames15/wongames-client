@@ -1,10 +1,7 @@
-version: '3'
-
 services:
   api:
     container_name: wongames_api
     image: matheus1501/api:latest
-    env_file: ../.env.local
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
