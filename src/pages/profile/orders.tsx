@@ -1,8 +1,13 @@
-import OrdersList, { OrdersListProps } from '@/components/OrdersList'
-import Profile from '@/templates/Profile'
-import ordersMock from '@/components/OrdersList/mock'
-import protectedRoutes from '@/utils/protected-routes'
 import { GetServerSidePropsContext } from 'next'
+import { getSession } from 'next-auth/react'
+
+import { QueryOrdersDocument } from '@/graphql/queries/__generated__/QueryOrders'
+
+import { initializeApollo } from '@/utils/apollo'
+import { ordersMapper } from '@/utils/mappers'
+
+import Profile from '@/templates/Profile'
+import OrdersList, { OrdersListProps } from '@/components/OrdersList'
 
 export default function Orders({ items }: OrdersListProps) {
   return (
@@ -13,12 +18,32 @@ export default function Orders({ items }: OrdersListProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await protectedRoutes(context)
+  const session = await getSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: `/sign-in?callbackUrl=${context.resolvedUrl}`,
+        permanent: false
+      },
+      props: {}
+    }
+  }
+
+  const apolloClient = initializeApollo(null, session)
+
+  const { data } = await apolloClient.query({
+    query: QueryOrdersDocument,
+    variables: {
+      identifier: session?.id
+    },
+    fetchPolicy: 'no-cache'
+  })
 
   return {
     props: {
       session,
-      items: ordersMock
+      items: ordersMapper(data.orders)
     }
   }
 }

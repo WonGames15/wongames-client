@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "moduleResolution": "bundler",
+    "baseUrl": "..",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/support/*": ["cypress/support/*"],
+      "@/fixtures/*": ["cypress/fixtures/*"],
+      "@/e2e/*": ["cypress/e2e/*"]
+    },
+    "types": [
+      "cypress",
+      "node",
+      "@testing-library/cypress",
+      "cypress-plugin-stripe-elements"
+    ]
+  },
+  "include": ["**/*.ts", "../src"],
+  "exclude": []
+}

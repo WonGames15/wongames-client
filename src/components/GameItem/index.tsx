@@ -5,8 +5,8 @@ import * as S from './styles'
 
 export type PaymentInfoProps = {
   number: string
-  flag: string
-  img: string
+  flag: string | null
+  img: string | null
   purchaseDate: string
 }
 
@@ -30,7 +30,7 @@ const GameItem = ({
   const { isInCart, removeFromCart } = useCart()
 
   return (
-    <S.Wrapper>
+    <S.Wrapper data-cy="game-item">
       <S.GameContent>
         <S.ImageBox>
           <Image src={img} alt={title} fill sizes="100%" priority />
@@ -64,20 +64,18 @@ const GameItem = ({
       </S.GameContent>
 
       {!!paymentInfo && (
-        <S.PaymentContent>
-          <p>{paymentInfo.purchaseDate}</p>
+        <S.CardInfo>
+          <span>{paymentInfo.number}</span>
 
-          <S.CardInfo>
-            <span>{paymentInfo.number}</span>
-
+          {!!paymentInfo.img && !!paymentInfo.flag && (
             <Image
               src={paymentInfo.img}
               alt={paymentInfo.flag}
               width={38}
               height={24}
             />
-          </S.CardInfo>
-        </S.PaymentContent>
+          )}
+        </S.CardInfo>
       )}
     </S.Wrapper>
   )

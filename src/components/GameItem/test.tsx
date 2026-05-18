@@ -2,7 +2,15 @@ import { CartContextDefaultValues } from '@/hooks/use-cart'
 import { render, screen, waitFor } from '@/utils/test-utils'
 import userEvent from '@testing-library/user-event'
 import GameItem from '.'
-import { StaticImageImport } from '../CardsList/test'
+
+export type StaticImageImport = {
+  src: string | undefined
+  alt?: string | undefined
+  width?: number | string
+  height?: number | string
+  fill?: boolean
+  priority?: boolean
+}
 
 const props = {
   documentId: 'ahef7s9utp83c41ezwfggp45',
@@ -10,14 +18,6 @@ const props = {
   title: 'Red Dead Redemption 2',
   price: 'R$ 215,00'
 }
-
-jest.mock('next/image', () => ({
-  __esModule: true,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  default: ({ src, alt, fill, priority, ...props }: StaticImageImport) => (
-    <img src={src} alt={alt} {...props} />
-  )
-}))
 
 describe('<GameItem />', () => {
   it('should render the item', () => {
@@ -75,6 +75,18 @@ describe('<GameItem />', () => {
       paymentInfo.img
     )
     expect(screen.getByText(paymentInfo.number)).toBeInTheDocument()
-    expect(screen.getByText(paymentInfo.purchaseDate)).toBeInTheDocument()
+  })
+
+  it('should render free game when theres no paymentInfo', () => {
+    const paymentInfo = {
+      flag: null,
+      img: null,
+      number: 'Free Game',
+      purchaseDate: 'Purchase made on 07/20/2020 at 20:32'
+    }
+
+    render(<GameItem {...props} paymentInfo={paymentInfo} />)
+
+    expect(screen.getByText(/free game/i)).toBeInTheDocument()
   })
 })

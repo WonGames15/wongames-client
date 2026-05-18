@@ -2,16 +2,7 @@ import { render, screen } from '@/utils/test-utils'
 import { fireEvent } from '@testing-library/react'
 import 'match-media-mock'
 import Gallery from '.'
-import { StaticImageImport } from '../CardsList/test'
 import mockItems from './mock'
-
-jest.mock('next/image', () => ({
-  __esModule: true,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  default: ({ src, alt, fill, priority, ...props }: StaticImageImport) => (
-    <img role="img" src={src} alt={alt} {...props} />
-  )
-}))
 
 describe('<Gallery />', () => {
   it('should render thumbnails as buttons', () => {
