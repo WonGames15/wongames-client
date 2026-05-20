@@ -82,7 +82,7 @@ describe('gamesMapper()', () => {
 
 describe('highlightMapper()', () => {
   it('should return empty object if no highlight', () => {
-    expect(highlightMapper(null)).toStrictEqual({})
+    expect(highlightMapper(null)).toStrictEqual(null)
   })
 
   it('should return mapped highlight', () => {

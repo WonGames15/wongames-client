@@ -42,9 +42,6 @@ describe('User', () => {
     cy.location('href').should('eq', `${Cypress.config().baseUrl}/profile/me`)
 
     cy.findByLabelText(/username/i).should('have.value', 'Matheus')
-    cy.findByLabelText(/e-mail/i).should(
-      'have.value',
-      'matheus150101miranda@gmail.com'
-    )
+    cy.findByLabelText(/e-mail/i).should('have.value', 'ci@wongames.com')
   })
 })
