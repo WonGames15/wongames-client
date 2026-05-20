@@ -19,7 +19,7 @@ export async function getStaticProps() {
   return {
     revalidate: 60 * 60,
     props: {
-      recommendedTitle: data.recommended?.section?.title,
+      recommendedTitle: data.recommended?.section?.title ?? null,
       recommendedGames: gamesMapper(data.recommended?.section?.games),
       recommendedHighlight: highlightMapper(
         data.recommended?.section?.highlight
