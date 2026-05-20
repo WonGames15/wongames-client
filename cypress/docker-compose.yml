@@ -9,10 +9,19 @@ services:
       DATABASE_USERNAME: wongames
       DATABASE_PASSWORD: wongames123
       DATABASE_NAME: wongames
+
       STRIPE_KEY: ${STRIPE_KEY}
       SEED: ${SEED:-false} # false por padrão, só roda se passar SEED=true
+
+      APP_KEYS: 'testKey1,testKey2,testKey3,testKey4'
+      API_TOKEN_SALT: 'testApiTokenSalt'
+      ADMIN_JWT_SECRET: 'testAdminJwtSecret'
+      TRANSFER_TOKEN_SALT: 'testTransferTokenSalt'
+      JWT_SECRET: 'testJwtSecret'
+
     ports:
       - '1337:1337'
+
     depends_on:
       db:
         condition: service_healthy # aguarda o postgres estar pronto de verdade
