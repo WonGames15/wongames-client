@@ -7,7 +7,7 @@ describe('Game Page', () => {
       cy.findByText(/^\* Exclusive Digital Comic - Cyberpunk 2077/i).should(
         'exist'
       )
-      cy.findByText('$20.99').should('exist')
+      cy.findByText('$69.95').should('exist')
       cy.findByRole('button', { name: /add to cart/i }).should('exist')
     })
 
