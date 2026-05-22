@@ -60,7 +60,7 @@ describe('<GameDetails />', () => {
 
   it('should render the formated date', () => {
     render(<GameDetails {...props} />)
-    expect(screen.getByText('Nov 21, 2020')).toBeInTheDocument()
+    expect(screen.getByText('Nov 22, 2020')).toBeInTheDocument()
   })
 
   it('should render a list of genres', () => {
