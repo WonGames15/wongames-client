@@ -33,6 +33,30 @@ jobs:
       - name: Wait for containers stabilize
         run: sleep 10
 
+      - name: Full API debug
+        if: always()
+        run: |
+          echo "================ DOCKER PS ================"
+          docker ps -a
+
+          echo "================ API INSPECT ================"
+          docker inspect wongames_api
+
+          echo "================ API LOGS LIVE ================"
+          docker logs wongames_api
+
+          echo "================ API LAST 1000 LINES ================"
+          docker logs --tail 1000 wongames_api
+
+          echo "================ API ENV ================"
+          docker exec wongames_api env || true
+
+          echo "================ API FILES ================"
+          docker exec wongames_api ls -R /opt/app/dist/scripts || true
+
+          echo "================ API SEED FILE CONTENT ================"
+          docker exec wongames_api sh -c "cat /opt/app/dist/scripts/seed/games.js | head -200" || true
+
       - name: Show Docker Logs
         run: docker compose -f ./cypress/docker-compose.yml logs
 
@@ -40,6 +64,10 @@ jobs:
         run: |
           docker ps
           docker logs wongames_api || true
+
+      - name: Inspect API container
+        run: |
+          docker inspect wongames_api || true
 
       - name: Waiting Strapi Server
         run: |
