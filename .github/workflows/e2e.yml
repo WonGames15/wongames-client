@@ -26,7 +26,6 @@ jobs:
       - name: Build the stack
         run: docker compose -f ./cypress/docker-compose.yml up -d
 
-      # COMEÇA A ESCUTAR TODOS OS LOGS DA API EM TEMPO REAL
       - name: Stream API logs
         run: |
           docker logs -f -t wongames_api > api.log 2>&1 &
@@ -49,7 +48,6 @@ jobs:
       - name: Run Cypress
         run: npm run test:e2e:ci
 
-      # MOSTRA TODOS OS LOGS CAPTURADOS DESDE O INÍCIO
       - name: Show Full API Logs
         if: always()
         run: |

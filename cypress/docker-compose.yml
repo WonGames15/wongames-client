@@ -2,6 +2,10 @@ services:
   api:
     container_name: wongames_api
     image: matheus1501/api:latest
+    # SOMENTE PARA RODAR LOCALMENTE
+    # env_file:
+    #   - ../.env.local
+
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
@@ -11,6 +15,8 @@ services:
       DATABASE_NAME: wongames
 
       STRIPE_KEY: ${STRIPE_KEY}
+      # SOMENTE PARA RODAR LOCALMENTE
+      # SEED: true
       SEED: ${SEED:-false} # false por padrão, só roda se passar SEED=true
 
       APP_KEYS: 'testKey1,testKey2,testKey3,testKey4'
