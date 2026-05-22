@@ -26,24 +26,24 @@ jobs:
       - name: Build the stack
         run: docker compose -f ./cypress/docker-compose.yml up -d
 
-      - name: Show API logs
-        if: always() # mostra mesmo se o CI falhar
-        run: docker logs wongames_api
+      # - name: Show API logs
+      #   if: always() # mostra mesmo se o CI falhar
+      #   run: docker logs wongames_api
 
-      - name: Wait for containers stabilize
-        run: sleep 10
+      # - name: Wait for containers stabilize
+      #   run: sleep 10
 
-      - name: Show Docker Logs
-        run: docker compose -f ./cypress/docker-compose.yml logs
+      # - name: Show Docker Logs
+      #   run: docker compose -f ./cypress/docker-compose.yml logs
 
-      - name: Debug containers
-        run: |
-          docker ps
-          docker logs wongames_api || true
+      # - name: Debug containers
+      #   run: |
+      #     docker ps
+      #     docker logs wongames_api || true
 
-      - name: Inspect API container
-        run: |
-          docker inspect wongames_api || true
+      # - name: Inspect API container
+      #   run: |
+      #     docker inspect wongames_api || true
 
       - name: Waiting Strapi Server
         run: |

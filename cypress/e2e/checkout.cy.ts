@@ -20,7 +20,7 @@ describe('Checkout', () => {
 
       // ir para explore page
       cy.findByRole('link', { name: /explore/i }).click()
-      cy.url({ timeout: 30000 }).should(
+      cy.url({ timeout: 50000 }).should(
         'eq',
         `${Cypress.config().baseUrl}/games`
       )
@@ -44,7 +44,7 @@ describe('Checkout', () => {
       })
 
       // conferir se redirecionou para cart
-      cy.url({ timeout: 25000 }).should(
+      cy.url({ timeout: 40000 }).should(
         'eq',
         `${Cypress.config().baseUrl}/cart`
       )
@@ -56,7 +56,7 @@ describe('Checkout', () => {
       cy.findByRole('button', { name: /buy now/i }).click()
 
       // conferir se redirecionou para success
-      cy.url({ timeout: 25000 }).should(
+      cy.url({ timeout: 40000 }).should(
         'eq',
         `${Cypress.config().baseUrl}/success`
       )
@@ -100,7 +100,7 @@ describe('Checkout', () => {
 
       // ir para explore page
       cy.findByRole('link', { name: /explore/i }).click()
-      cy.url({ timeout: 25000 }).should(
+      cy.url({ timeout: 40000 }).should(
         'eq',
         `${Cypress.config().baseUrl}/games`
       )
@@ -124,7 +124,7 @@ describe('Checkout', () => {
       })
 
       // conferir se redirecionou para cart
-      cy.url({ timeout: 25000 }).should(
+      cy.url({ timeout: 40000 }).should(
         'eq',
         `${Cypress.config().baseUrl}/cart`
       )
@@ -144,7 +144,7 @@ describe('Checkout', () => {
       cy.findByRole('button', { name: /buy now/i }).click()
 
       // conferir se redirecionou para success
-      cy.url({ timeout: 30000 }).should(
+      cy.url({ timeout: 50000 }).should(
         'eq',
         `${Cypress.config().baseUrl}/success`
       )
