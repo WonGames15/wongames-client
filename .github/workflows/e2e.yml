@@ -31,9 +31,6 @@ jobs:
         run: |
           docker logs -f -t wongames_api > api.log 2>&1 &
 
-      - name: Wait for containers stabilize
-        run: sleep 15
-
       - name: Waiting Strapi Server
         run: |
           docker run --rm \
@@ -58,18 +55,6 @@ jobs:
         run: |
           echo "================ FULL API LOGS ================"
           cat api.log
-
-      - name: Docker Debug
-        if: always()
-        run: |
-          echo "================ DOCKER PS ================"
-          docker ps -a
-
-          echo "================ API LAST 5000 LINES ================"
-          docker logs --tail 5000 wongames_api
-
-          echo "================ DOCKER COMPOSE LOGS ================"
-          docker compose -f ./cypress/docker-compose.yml logs --timestamps
 
       - name: Upload Cypress Screenshots
         if: failure()
