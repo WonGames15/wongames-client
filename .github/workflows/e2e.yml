@@ -26,48 +26,13 @@ jobs:
       - name: Build the stack
         run: docker compose -f ./cypress/docker-compose.yml up -d
 
-      - name: Show API logs
-        if: always() # mostra mesmo se o CI falhar
-        run: docker logs wongames_api
+      # COMEÇA A ESCUTAR TODOS OS LOGS DA API EM TEMPO REAL
+      - name: Stream API logs
+        run: |
+          docker logs -f -t wongames_api > api.log 2>&1 &
 
       - name: Wait for containers stabilize
-        run: sleep 10
-
-      - name: Full API debug
-        if: always()
-        run: |
-          echo "================ DOCKER PS ================"
-          docker ps -a
-
-          echo "================ API INSPECT ================"
-          docker inspect wongames_api
-
-          echo "================ API LOGS LIVE ================"
-          docker logs wongames_api
-
-          echo "================ API LAST 1000 LINES ================"
-          docker logs --tail 1000 wongames_api
-
-          echo "================ API ENV ================"
-          docker exec wongames_api env || true
-
-          echo "================ API FILES ================"
-          docker exec wongames_api ls -R /opt/app/dist/scripts || true
-
-          echo "================ API SEED FILE CONTENT ================"
-          docker exec wongames_api sh -c "cat /opt/app/dist/scripts/seed/games.js | head -200" || true
-
-      - name: Show Docker Logs
-        run: docker compose -f ./cypress/docker-compose.yml logs
-
-      - name: Debug containers
-        run: |
-          docker ps
-          docker logs wongames_api || true
-
-      - name: Inspect API container
-        run: |
-          docker inspect wongames_api || true
+        run: sleep 15
 
       - name: Waiting Strapi Server
         run: |
@@ -86,6 +51,25 @@ jobs:
 
       - name: Run Cypress
         run: npm run test:e2e:ci
+
+      # MOSTRA TODOS OS LOGS CAPTURADOS DESDE O INÍCIO
+      - name: Show Full API Logs
+        if: always()
+        run: |
+          echo "================ FULL API LOGS ================"
+          cat api.log
+
+      - name: Docker Debug
+        if: always()
+        run: |
+          echo "================ DOCKER PS ================"
+          docker ps -a
+
+          echo "================ API LAST 5000 LINES ================"
+          docker logs --tail 5000 wongames_api
+
+          echo "================ DOCKER COMPOSE LOGS ================"
+          docker compose -f ./cypress/docker-compose.yml logs --timestamps
 
       - name: Upload Cypress Screenshots
         if: failure()
