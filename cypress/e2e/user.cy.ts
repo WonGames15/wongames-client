@@ -1,7 +1,7 @@
 import { createUser } from '@/support/generate'
 
 describe('User', () => {
-  it.skip('should sign up', () => {
+  it('should sign up', () => {
     const user = createUser()
 
     cy.visit('/sign-up')
@@ -12,18 +12,18 @@ describe('User', () => {
     cy.findByText(user.username).should('exist')
   })
 
-  it.skip('should sign in and sign out', () => {
+  it('should sign in and sign out', () => {
     cy.visit('/sign-in')
 
     cy.signIn()
 
-    cy.findByText(/matheus/i, { timeout: 10000 })
+    cy.findByText(/cypress/i, { timeout: 20000 })
       .should('exist')
       .click()
     cy.findByText(/sign out/i).click()
 
     cy.findByRole('link', { name: /sign in/i }).should('exist')
-    cy.findByText(/matheus/i).should('not.exist')
+    cy.findByText(/cypress/i).should('not.exist')
   })
 
   it('should sign the user and redirect to the page that it was previously defined', () => {
@@ -41,10 +41,7 @@ describe('User', () => {
     // espero ser redirecionado para profile
     cy.location('href').should('eq', `${Cypress.config().baseUrl}/profile/me`)
 
-    cy.findByLabelText(/username/i).should('have.value', 'Matheus')
-    cy.findByLabelText(/e-mail/i).should(
-      'have.value',
-      'matheus150101miranda@gmail.com'
-    )
+    cy.findByLabelText(/username/i).should('have.value', 'Cypress')
+    cy.findByLabelText(/e-mail/i).should('have.value', 'ci@wongames.com')
   })
 })

@@ -7,7 +7,7 @@ describe('Game Page', () => {
       cy.findByText(/^\* Exclusive Digital Comic - Cyberpunk 2077/i).should(
         'exist'
       )
-      cy.findByText('$20.99').should('exist')
+      cy.findByText('$69.95').should('exist')
       cy.findByRole('button', { name: /add to cart/i }).should('exist')
     })
 
@@ -35,7 +35,7 @@ describe('Game Page', () => {
       cy.findByRole('heading', { name: /genres/i }).should('exist')
 
       cy.findAllByText(/cd projekt red/i).should('have.length', 2)
-      cy.findByText(/dec 9, 2020/i).should('exist')
+      cy.findByText(/dec 10, 2020/i).should('exist')
       cy.findByRole('img', { name: /windows/i }).should('exist')
       cy.findByText(/18\+/i).should('exist')
       cy.findByText('Role-playing / Action / Sci-fi').should('exist')

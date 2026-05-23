@@ -18,7 +18,7 @@ Cypress.Commands.add('signUp', (user: User) => {
 
 Cypress.Commands.add(
   'signIn',
-  (email = 'matheus150101miranda@gmail.com', password = 'Matheus123') => {
+  (email = 'ci@wongames.com', password = 'Teste123') => {
     cy.findAllByPlaceholderText(/email/i).type(email)
     cy.findAllByPlaceholderText(/password/i).type(password)
     cy.findByRole('button', { name: /sign in now/i }).click()
@@ -35,18 +35,14 @@ Cypress.Commands.add('shouldRenderBanner', () => {
   cy.get('.slick-slider')
     .first()
     .within(() => {
-      cy.findByRole('heading', {
-        name: /tortura - a pirate's tale$/i
-      })
+      cy.findByRole('heading', { name: /cyberpunk 2077$/i })
       cy.findByRole('link', { name: /buy now/i })
 
       cy.get('.slick-dots > :nth-child(2) > button').click()
       cy.wait(500)
 
-      cy.findByRole('heading', {
-        name: /cyberpunk 2077$/i
-      })
-      cy.findByRole('link', { name: /buy now/i })
+      cy.findByRole('heading', { name: /the witcher 3$/i })
+      cy.findByRole('link', { name: /explore/i })
     })
 })
 

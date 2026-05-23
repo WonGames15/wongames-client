@@ -1,25 +1,50 @@
-version: '3'
-
 services:
   api:
     container_name: wongames_api
     image: matheus1501/api:latest
-    env_file: ../.env.local
+    # SOMENTE PARA RODAR LOCALMENTE
+    # env_file:
+    #   - ../.env.local
+
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
       DATABASE_PORT: 5432
-      DATABASE_USERNAME: strapi
-      DATABASE_PASSWORD: strapi123
-      DATABASE_NAME: strapi
+      DATABASE_USERNAME: wongames
+      DATABASE_PASSWORD: wongames123
+      DATABASE_NAME: wongames
+
       STRIPE_KEY: ${STRIPE_KEY}
+      # SOMENTE PARA RODAR LOCALMENTE
+      # SEED: true
+      SEED: ${SEED:-false} # false por padrão, só roda se passar SEED=true
+
+      APP_KEYS: 'testKey1,testKey2,testKey3,testKey4'
+      API_TOKEN_SALT: 'testApiTokenSalt'
+      ADMIN_JWT_SECRET: 'testAdminJwtSecret'
+      TRANSFER_TOKEN_SALT: 'testTransferTokenSalt'
+      JWT_SECRET: 'testJwtSecret'
+
     ports:
       - '1337:1337'
+
     depends_on:
-      - db
+      db:
+        condition: service_healthy # aguarda o postgres estar pronto de verdade
 
   db:
     container_name: wongames_db
-    image: matheus1501/database:latest
+    image: postgres:18.4-alpine3.23
+    environment:
+      POSTGRES_USER: wongames
+      POSTGRES_PASSWORD: wongames123
+      POSTGRES_DB: wongames
     ports:
       - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U wongames -d wongames']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+name: End to End

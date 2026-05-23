@@ -67,7 +67,7 @@ const OrdersList = ({ items = [] }: OrdersListProps) => {
                   </div>
                 </S.OrderTitleBox>
 
-                <S.Content isOpen={isOpen}>
+                <S.Content $isOpen={isOpen}>
                   {order.games.map((game, gameIndex) => (
                     <GameItem
                       key={`${order.documentId}-${orderIndex}-${gameIndex}`}

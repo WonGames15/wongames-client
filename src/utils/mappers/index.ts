@@ -53,12 +53,12 @@ export const highlightMapper = (
           : `/img/image_empty.png`,
         floatImage: highlight?.floatImage?.url
           ? `${getImageUrl(highlight.floatImage.url)}`
-          : `/img/image_empty.png`,
+          : null,
         buttonLabel: highlight.buttonLabel,
         buttonLink: highlight.buttonLink,
         alignment: highlight.alignment
       }
-    : {}
+    : null
 }
 
 export const cartMapper = (games: QueryGamesQuery['games'] | undefined) => {

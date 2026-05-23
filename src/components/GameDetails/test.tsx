@@ -6,7 +6,7 @@ const props: GameDetailsProps = {
   developer: 'Different Tales',
   publisher: 'Walktrough',
   platforms: ['windows', 'mac', 'linux'],
-  releaseDate: '2020-11-21T23:00:00',
+  releaseDate: '2020-11-21T23:00:00Z',
   rating: 'BR0',
   genres: ['Role-playing', 'Narrative']
 }

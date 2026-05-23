@@ -73,16 +73,16 @@ export const OrderDate = styled.p`
   `}
 `
 
-export const Content = styled.div<{ isOpen: boolean }>`
+export const Content = styled.div<{ $isOpen: boolean }>`
   overflow: hidden;
-  max-height: ${({ isOpen }) => (isOpen ? '1000px' : '0')};
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  max-height: ${({ $isOpen }) => ($isOpen ? '1000px' : '0')};
+  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   transition:
     max-height 0.8s ease,
     opacity 0.7s ease;
 
-  ${({ isOpen }) =>
-    isOpen &&
+  ${({ $isOpen }) =>
+    $isOpen &&
     `
       overflow-y: auto;
   `};

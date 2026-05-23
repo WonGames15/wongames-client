@@ -29,20 +29,26 @@ export async function getStaticProps() {
     revalidate: 10,
     props: {
       banners: bannerMapper(banners),
-      newGamesTitle: sections?.newGames?.title,
-      newGames: gamesMapper(newGames),
+      newGamesTitle: sections?.newGames?.title ?? null,
+      newGames: sections?.newGames ? gamesMapper(newGames) : null,
 
-      mostPopularGamesTitle: sections?.popularGames?.title,
+      mostPopularGamesTitle: sections?.popularGames?.title ?? null,
       mostPopularHighlight: highlightMapper(sections?.popularGames?.highlight),
-      mostPopularGames: gamesMapper(sections?.popularGames?.games),
+      mostPopularGames: sections?.popularGames
+        ? gamesMapper(sections?.popularGames?.games)
+        : null,
 
-      upcomingGamesTitle: sections?.upcomingGames?.title,
-      upcomingGames: gamesMapper(upcomingGames),
+      upcomingGamesTitle: sections?.upcomingGames?.title ?? null,
+      upcomingGames: sections?.upcomingGames
+        ? gamesMapper(upcomingGames)
+        : null,
       upcomingHighlight: highlightMapper(sections?.upcomingGames?.highlight),
 
-      freeGamesTitle: sections?.freeGames?.title,
+      freeGamesTitle: sections?.freeGames?.title ?? null,
       freeGames: gamesMapper(freeGames),
-      freeHighlight: highlightMapper(sections?.freeGames?.highlight)
+      freeHighlight: sections?.freeGames
+        ? highlightMapper(sections?.freeGames?.highlight)
+        : null
     }
   }
 }

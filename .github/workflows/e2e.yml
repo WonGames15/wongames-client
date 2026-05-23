@@ -10,6 +10,8 @@ jobs:
 
     env:
       NODE_ENV: test
+      STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+      SEED: true
 
     steps:
       - name: Checkout Repository
@@ -24,6 +26,10 @@ jobs:
       - name: Build the stack
         run: docker compose -f ./cypress/docker-compose.yml up -d
 
+      - name: Stream API logs
+        run: |
+          docker logs -f -t wongames_api > api.log 2>&1 &
+
       - name: Waiting Strapi Server
         run: |
           docker run --rm \
@@ -33,7 +39,7 @@ jobs:
             -timeout 120s \
             -wait-retry-interval 5s
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
       - name: Build
@@ -41,3 +47,16 @@ jobs:
 
       - name: Run Cypress
         run: npm run test:e2e:ci
+
+      - name: Show Full API Logs
+        if: always()
+        run: |
+          echo "================ FULL API LOGS ================"
+          cat api.log
+
+      - name: Upload Cypress Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
