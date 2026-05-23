@@ -39,14 +39,8 @@ jobs:
             -timeout 120s \
             -wait-retry-interval 5s
 
-      - name: Waiting Public API
-        run: |
-          docker run --rm \
-            --network container:wongames_api \
-            jwilder/dockerize \
-            -wait http://localhost:1337/api/games \
-            -timeout 60s \
-            -wait-retry-interval 5s
+      - name: Wait for seed
+        run: sleep 60
 
       - name: Install Dependencies
         run: npm ci
