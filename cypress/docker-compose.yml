@@ -19,10 +19,6 @@ services:
       # SEED: true
       SEED: ${SEED:-false} # false por padrão, só roda se passar SEED=true
 
-      CLOUDINARY_NAME: ${CLOUDINARY_NAME}
-      CLOUDINARY_KEY: ${CLOUDINARY_KEY}
-      CLOUDINARY_SECRET: ${CLOUDINARY_SECRET}
-
       APP_KEYS: 'testKey1,testKey2,testKey3,testKey4'
       API_TOKEN_SALT: 'testApiTokenSalt'
       ADMIN_JWT_SECRET: 'testAdminJwtSecret'
