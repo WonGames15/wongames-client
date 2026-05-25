@@ -49,7 +49,16 @@ const Success = ({
           <S.Text>
             Wait for your payment details by email. Your game is now available
             for download inside your{' '}
-            <Link href="/profile/orders">Orders List</Link>. Enjoy!
+            <Link
+              href="/profile/orders"
+              onClick={(e) => {
+                e.preventDefault()
+                window.location.href = '/profile/orders'
+              }}
+            >
+              Orders List
+            </Link>
+            . Enjoy!
           </S.Text>
         </S.Wrapper>
       </Container>

@@ -100,7 +100,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       if (freeGames) {
         // salva no banco
         // bater na API /orders
-        saveOrder()
+        await saveOrder()
 
         // redireciona para success
         push('/success')
@@ -121,7 +121,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
 
         // salvar a compra no banco do Strapi
         // bater na API /orders
-        saveOrder(payload.paymentIntent)
+        await saveOrder(payload.paymentIntent)
 
         // redirectionar para a página de Sucesso
         push('/success')
