@@ -10,6 +10,15 @@ const props = {
   recommendedGames: gamesMock
 }
 
+jest.mock('@/components/Menu', () => {
+  return {
+    __esModule: true,
+    default: function Mock() {
+      return <div data-testid="Mock Menu"></div>
+    }
+  }
+})
+
 jest.mock('@/components/Showcase', () => ({
   __esModule: true,
   default: function Mock() {

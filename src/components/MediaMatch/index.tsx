@@ -1,12 +1,12 @@
 import breakpoints from '@/utils/breakpoints'
 import styled, { css } from 'styled-components'
-import { DefaultBreakpoints } from 'styled-media-query'
 
-type breakpointKeys = keyof DefaultBreakpoints
+type breakpointKeys = keyof typeof breakpoints
 
 export type MediaMatchProps = {
   lessThan?: breakpointKeys
   greaterThan?: breakpointKeys
+  fullWidth?: boolean
 }
 
 const mediaMatchModifiers = {
@@ -23,11 +23,17 @@ const mediaMatchModifiers = {
 }
 
 export default styled.div.withConfig({
-  shouldForwardProp: (prop) => !['lessThan', 'greaterThan'].includes(prop)
+  shouldForwardProp: (prop) =>
+    !['lessThan', 'greaterThan', 'fullWidth'].includes(prop)
 })<MediaMatchProps>`
-  ${({ lessThan, greaterThan }) => css`
+  ${({ lessThan, greaterThan, fullWidth }) => css`
     display: none;
     ${!!lessThan && mediaMatchModifiers.lessThan(lessThan)}
     ${!!greaterThan && mediaMatchModifiers.greaterThan(greaterThan)}
+
+    ${!!fullWidth &&
+    css`
+      width: 100%;
+    `}
   `}
 `

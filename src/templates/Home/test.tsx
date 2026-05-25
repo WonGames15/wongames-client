@@ -41,6 +41,17 @@ jest.mock('@/components/BannerSlider', () => {
   }
 })
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+    pathname: '/',
+    query: {},
+    asPath: '/'
+  })
+}))
+
 describe('<Home />', () => {
   it('should render banner and showcases', () => {
     render(<Home {...props} />)

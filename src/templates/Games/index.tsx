@@ -9,12 +9,12 @@ import {
   parseQueryStringToWhere
 } from '@/utils/filter'
 import { isGame, isNotNull } from '@/utils/filterByTypes'
+import { getImageUrl } from '@/utils/getImageUrl'
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'
 import { useRouter } from 'next/router'
 import { ParsedUrlQueryInput } from 'querystring'
 import { useEffect, useState } from 'react'
 import * as S from './styles'
-import { getImageUrl } from '@/utils/getImageUrl'
 
 export type GamesTemplateProps = {
   games?: GameCardProps[]
@@ -22,7 +22,7 @@ export type GamesTemplateProps = {
 }
 
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
-  const { push, query } = useRouter()
+  const router = useRouter()
 
   const [isClient, setIsClient] = useState(false)
 
@@ -30,8 +30,11 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
     notifyOnNetworkStatusChange: true,
     variables: {
       pagination: { limit: 15 },
-      filters: parseQueryStringToWhere({ queryString: query, filterItems }),
-      sort: query.sort as (string | null)[] | null
+      filters: parseQueryStringToWhere({
+        queryString: router.query,
+        filterItems
+      }),
+      sort: router.query.sort as (string | null)[] | null
     }
   })
 
@@ -39,9 +42,12 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
     (data?.games?.length || 0) < (data?.games_connection?.pageInfo.total || 0)
 
   const handleFilter = (items: ParsedUrlQueryInput) => {
-    push({
+    router.push({
       pathname: '/games',
-      query: items
+      query: {
+        ...router.query,
+        ...items
+      }
     })
     return
   }
@@ -63,7 +69,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
       <S.Main>
         <ExploreSidebar
           initialValues={parseQueryStringToFilter({
-            queryString: query,
+            queryString: router.query,
             filterItems
           })}
           items={filterItems}
@@ -75,7 +81,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
             {data ? (
               data?.games && data.games.length > 0 ? (
                 <>
-                  <Grid>
+                  <Grid noMarginTopDesktop>
                     {data.games.filter(isGame).map((game) => (
                       <GameCard
                         documentId={game.documentId}

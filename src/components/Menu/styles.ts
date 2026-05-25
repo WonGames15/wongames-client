@@ -1,6 +1,9 @@
+import breakpoints from '@/utils/breakpoints'
 import { cover } from 'polished'
 import styled, { css } from 'styled-components'
-import media from 'styled-media-query'
+import { generateMedia } from 'styled-media-query'
+
+const customMedia = generateMedia(breakpoints)
 
 export const Wrapper = styled.menu`
   ${({ theme }) => css`
@@ -12,11 +15,59 @@ export const Wrapper = styled.menu`
   `}
 `
 
+export const WrapperMobile = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: ${theme.spacings.large};
+
+    & > div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  `}
+`
+
 export const LogoWrapper = styled.div`
-  ${media.lessThan('medium')`
+  ${customMedia.lessThan('bigMedium')`
     position: absolute;
     left: 50%;
+    top: 13px;
     transform: translateX(-50%);
+  `}
+`
+
+export const SearchWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  ${customMedia.lessThan('bigMedium')`
+    width: 100%;
+  `}
+`
+
+export const SearchInput = styled.input`
+  background: transparent;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
+  padding-bottom: 4px;
+
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.font.sizes.small};
+
+  width: 18rem;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray};
+  }
+
+  ${customMedia.lessThan('bigMedium')`
+    width: 100%;
   `}
 `
 
@@ -35,16 +86,13 @@ export const MenuGroup = styled.div`
     flex-grow: 1;
     justify-content: flex-end;
     align-items: center;
-
-    > div {
-      margin-left: ${theme.spacings.xsmall};
-    }
+    gap: ${theme.spacings.xsmall};
   `}
 `
 
 export const MenuNav = styled.div`
   ${({ theme }) => css`
-    ${media.greaterThan('medium')`
+    ${customMedia.greaterThan('bigMedium')`
       margin-left: ${theme.spacings.small};
 		`}
   `}

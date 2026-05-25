@@ -247,7 +247,7 @@ exports[`<Footer /> should render 4 column topics 1`] = `
         <a
           href="/search"
         >
-          Buscar
+          Search
         </a>
       </nav>
     </div>
@@ -275,7 +275,7 @@ exports[`<Footer /> should render 4 column topics 1`] = `
   <div
     class="c6"
   >
-    Won Games 2020 © All rights reserved.
+    Won Games 2026 © All rights reserved.
   </div>
 </footer>
 `;

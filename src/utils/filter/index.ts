@@ -16,6 +16,14 @@ export const parseQueryStringToWhere = ({
   Object.keys(queryString)
     .filter((item) => item !== 'sort')
     .forEach((key) => {
+      if (key === 'q') {
+        obj.name = {
+          containsi: queryString[key]
+        }
+
+        return
+      }
+
       const item = filterItems?.find((item) => item.name === key)
       const isCheckbox = item?.type === 'checkbox'
 

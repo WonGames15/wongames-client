@@ -60,7 +60,7 @@ const Footer = () => (
         <nav id="resources">
           <Link href="/">Home</Link>
           <Link href="/games">Store</Link>
-          <Link href="/search">Buscar</Link>
+          <Link href="/search">Search</Link>
         </nav>
       </S.Column>
 
@@ -74,7 +74,7 @@ const Footer = () => (
         <span>Lorem, ipsum dolor.</span>
       </S.Column>
     </S.Content>
-    <S.Copyright>Won Games 2020 © All rights reserved.</S.Copyright>
+    <S.Copyright>Won Games 2026 © All rights reserved.</S.Copyright>
   </S.Wrapper>
 )
 export default Footer
